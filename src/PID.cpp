@@ -45,6 +45,10 @@ namespace snct{
 		_last_err2 = 0.0f;
 	}
 
+	PID::~PID(void){
+		
+	}
+	
 	float PID::calc_velocity(const float feedback){
 		_err = _target - feedback;
 		if(-_tolerance < _err && _err < _tolerance){
