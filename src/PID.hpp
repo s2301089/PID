@@ -8,8 +8,8 @@ namespace snct{
 			PID(float period, float limit, float limit_i, float tolerance, float target, float kp, float kd, float ki);
 			~PID(void);
 
-			float calc_velocity(const float feedback);
 			float calc_location(const float feedback);
+			float calc_velocity(const float feedback);
 
 			float getPeriod(void) const{
 				return _period;

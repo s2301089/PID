@@ -49,30 +49,6 @@ namespace snct{
 		
 	}
 	
-	float PID::calc_velocity(const float feedback){
-		_err = _target - feedback;
-		if(-_tolerance < _err && _err < _tolerance){
-			_err = 0.0f;
-		}
-
-		_delta_p = _kp * (_err - _last_err);
-		_delta_d = _kd * (_err - 2.0f * _last_err + _last_err2) / _period;
-		_delta_i = _ki * _err * _period;
-
-		_output += _delta_p + _delta_d + _delta_i;
-
-		if(_output > _limit){
-			_output = _limit;
-		}else if(_output < -_limit){
-			_output = -_limit;
-		}
-
-		_last_err2 = _last_err;
-		_last_err = _err;
-
-		return _output;
-	}
-
 	float PID::calc_location(const float feedback){
 		_err = _target - feedback;
 		if(-_tolerance < _err && _err < _tolerance){
@@ -97,6 +73,30 @@ namespace snct{
 			_output = -_limit;
 		}
 
+		_last_err = _err;
+
+		return _output;
+	}
+
+	float PID::calc_velocity(const float feedback){
+		_err = _target - feedback;
+		if(-_tolerance < _err && _err < _tolerance){
+			_err = 0.0f;
+		}
+
+		_delta_p = _kp * (_err - _last_err);
+		_delta_d = _kd * (_err - 2.0f * _last_err + _last_err2) / _period;
+		_delta_i = _ki * _err * _period;
+
+		_output += _delta_p + _delta_d + _delta_i;
+
+		if(_output > _limit){
+			_output = _limit;
+		}else if(_output < -_limit){
+			_output = -_limit;
+		}
+
+		_last_err2 = _last_err;
 		_last_err = _err;
 
 		return _output;
