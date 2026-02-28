@@ -136,7 +136,7 @@ namespace snct{
 				_kd,
 				_ki
 			;
-	}
+	};
 }
 
 #endif // _INCLUDE_PID_H_
